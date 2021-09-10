@@ -131,7 +131,7 @@ namespace Tetris
 					AddCurrentFigureToTetrisField();
 					int lines = CheckForFullLine();
 					Score += ScorePerLines[lines] * level;
-					level = ChangingLevel(Score);
+					//level = ChangingLevel(Score);
 					CurrentFigure = NextFigure;
 					CurrentFigureRow = 0;
 					CurrentFigureCol = 0;
