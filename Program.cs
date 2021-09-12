@@ -131,7 +131,7 @@ namespace Tetris
 					AddCurrentFigureToTetrisField();
 					int lines = CheckForFullLine();
 					Score += ScorePerLines[lines] * level;
-					//level = ChangingLevel(Score);
+					level = ChangingLevel(Score);
 					CurrentFigure = NextFigure;
 					CurrentFigureRow = 0;
 					CurrentFigureCol = 0;
@@ -145,6 +145,8 @@ namespace Tetris
 						Write($"║    {scoreAsString}║", 9, 6, ConsoleColor.Red);
 						Write("║                ║", 10, 6, ConsoleColor.Red);
 						Write("╚════════════════╝", 11, 6, ConsoleColor.Red);
+						Write("  Press Escape", 12, 6, ConsoleColor.Red);
+						Write("  To Play Again", 13, 6, ConsoleColor.Red);
 						if (Score > int.Parse(Highscore))
 						{
 							File.WriteAllText(HighScoreFIleName, Score.ToString());
@@ -173,7 +175,7 @@ namespace Tetris
 				DrawTetrisField();
 				DrawCurrentFigure();
 				DrawNextFigure();
-				Thread.Sleep(30);
+				Thread.Sleep(40);
 			}
 		}
 
@@ -383,7 +385,7 @@ namespace Tetris
 					level = int.Parse(Console.ReadLine());
 					try
 					{
-						FramesToMoveFigure = LevelSpeed[level];
+						FramesToMoveFigure = LevelSpeed[level-1];
 						break;
 					}
 					catch
@@ -394,6 +396,7 @@ namespace Tetris
 				}
 			}
 		}
+
 		static bool Collision(bool[,] figure)
 		{
 
@@ -428,23 +431,38 @@ namespace Tetris
 			{
 				if (Score >= 550 && Score < 1100)
 				{
-					level++;
+					if (level == 1)
+					{
+						level++;
+					}
 				}
-				if (Score >= 1100 && Score < 1650)
+				else if (Score >= 1100 && Score < 1650)
 				{
-					level++;
+					if (level == 2)
+					{
+						level++;
+					}
 				}
-				if (Score >= 1650 && Score < 2200)
+				else if(Score >= 1650 && Score < 2200)
 				{
-					level++;
+					if (level == 3)
+					{
+						level++;
+					}
 				}
-				if (Score >= 2200 && Score < 2750)
+				else if(Score >= 2200 && Score < 2750)
 				{
-					level++;
+					if (level == 4)
+					{
+						level++;
+					}
 				}
-				if (Score >= 3500)
+				else if(Score >= 3500)
 				{
-					level++;
+					if (level == 5)
+					{
+						level++;
+					}
 				}
 			}
 			FramesToMoveFigure = LevelSpeed[level-1];
